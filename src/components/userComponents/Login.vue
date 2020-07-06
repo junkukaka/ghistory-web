@@ -26,8 +26,7 @@
 </template>
 
 <script>
-import store from '../../store/index.js'
-import router from '../../router/index.js'
+
 export default {
     name: 'login',
     data () {
@@ -42,21 +41,22 @@ export default {
         // 登录会员
         login:function(){
             let datas = this.$data;
-            let options = this.$options;
+            let store = this.$store;
+            let router = this.$router;
             //HTTP GET方法请求可以简写如下：
-            this.$http.post("/member/login",
-            {
-                mail : this.$data.mail,
-                password : this.$data.password
-            },
-            {
-                headers:{
-                    "Content-Type":"application/json",
+            this.$http.post("/member/members/login",
+                 {
+                    mail : this.$data.mail,
+                    password : this.$data.password
+                },
+                {
+                    headers:{
+                        "Content-Type":"application/json",
+                    }
                 }
-            })
-            .then(function (response) {
+            ).then(function (response) {
                 console.log(response.data.alias);
-                if(response.data == ""){
+                if(response.data.id == undefined){
                     datas.msg = "账号或者密码错误"
                 }else{
                      //成功 存放到全局变量
@@ -65,15 +65,12 @@ export default {
                     store.state.id = response.data.id;
                     store.state.logined = true;
                     //去欢迎页面
-                    options.methods.toWelecome();
+                    router.push({name:"welcome"});
                 }
                
             }).catch(function (error) {
                 console.log(error);
-            });
-        },
-        toWelecome:function(){
-            router.push({name : "welcome"});
+            })
         }
     }
 }

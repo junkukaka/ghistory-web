@@ -16,7 +16,7 @@
                         <a class="nav-link" href="#" tabindex="-1" @click="toHome" >新闻 </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                        <a class="nav-link" href="#" tabindex="-1" @click="toCodeManager">管理者</a>
                     </li>
                     
                      <li class="nav-item">
@@ -89,6 +89,10 @@ export default {
         //会员个人信息
         toUserInfo(){
             this.$router.push({name : 'userInfo'})
+        },
+        //管理者页面
+        toCodeManager(){
+            this.$router.push({name: "codeManager"})
         }
 
     }

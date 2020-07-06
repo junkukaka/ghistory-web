@@ -26,11 +26,14 @@
                 <input type="password" class="form-control" id="exampleInputPassword2">
             </div>
             <button type="button" class="btn btn-primary btn-lg btn-block" @click="postMember">Submit</button>
+            <small id="emailHelp" class="form-text text-muted">{{msgRregister}}</small>
         </div>
     </div>
 </template>
 
 <script>
+
+
 export default {
     name: 'registered',
     data() {
@@ -40,7 +43,8 @@ export default {
             password: "******",
             id : "",
             msgAlias:"",
-            msgMail:""
+            msgMail:"",
+            msgRregister:""
         }   
     },
     methods :{
@@ -49,7 +53,9 @@ export default {
             let datas = this.$data;
             this.$http.get("/member/members/alias/" + this.$data.alias).then(function (response) {
                 if(response.data != ""){
-                    datas.msgAlias = "该用户名已经存在。"
+                    datas.msgAlias = "该用户名已经存在。";
+                }else{
+                    datas.msgAlias = "";
                 }
             })
 
@@ -60,12 +66,16 @@ export default {
             this.$http.get("/member/members/mail/" + this.$data.mail).then(function (response) {
                 if(response.data != ""){
                     datas.msgMail = "该邮箱已经存在。"
+                }else{
+                    datas.msgMail = "";
                 }
             })
         },
         // 会员注册
         postMember(){
-            this.$http.post("/member/members",
+            let datas = this.$data;
+            let router = this.$router;
+            this.$http.post("/member/members/register",
                 {
                     alias : this.$data.alias,
                     mail : this.$data.mail,
@@ -77,9 +87,18 @@ export default {
                     }
                 }
             ).then(function (response) {
-                console.log(response);
+                //if return data hava id the regist is success
+                if(response.data.id != undefined){
+                    alert("注册成功");
+                    //跳转欢迎页面
+                    router.push({name:"welcome"});
+                }else{
+                    datas.msgRregister = "账号或者邮箱已被注册"
+                }
             })
-        }
+        },
+        
+
     }
 }
 </script>

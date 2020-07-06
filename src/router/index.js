@@ -8,6 +8,7 @@ import Welcome from '../components/userComponents/Welcome.vue'
 import ContentDetail from '../components/article/ContentDetail.vue'
 import UserInfo from '../components/userComponents/UserInfo.vue'
 import AdminArticle from '../components/article/AdminArticle.vue'
+import CodeManager from '../components/admin/codeManager.vue'
 
 
 //1.引路vueRouter插件
@@ -62,6 +63,12 @@ const routes = [
         name : 'adminArticle',
         path : '/adminArticle',
         component : AdminArticle
+    },
+    //共同代码管理
+    {
+        name : 'codeManager',
+        path : '/codeManager',
+        component : CodeManager
     }
 ]
 

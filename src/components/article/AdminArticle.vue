@@ -27,11 +27,6 @@
                 </div>
                 <textarea class="form-control" aria-label="With textarea" style="height:200px"></textarea>
             </div>
-            <div class="custom-file margin16">
-                <input type="file" class="custom-file-input" id="validatedCustomFile" required>
-                <label class="custom-file-label" for="validatedCustomFile">article image</label>
-                <div class="invalid-feedback">Example invalid custom file feedback</div>
-            </div>
              <!-- 多选区域 -->
             <h5 class="margin16">文章类型类型</h5>
             <div class="margin16">
