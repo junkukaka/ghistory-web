@@ -3,7 +3,7 @@
         <div class="clearfix" style="padding:8px 0">
             <h5 style="float:left">共同代码管理</h5>
             <button  type="button" class="btn btn-primary btn-sm" style="float:right"
-                    data-target="#exampleModal" data-toggle="modal">add code</button>
+                    data-target="#exampleModal" data-toggle="modal" @click="addCode">addCode</button>
         </div>
         <table class="table table-striped">
             <thead>
@@ -66,9 +66,9 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">delete</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="deleteCode">delete</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-primary"  data-dismiss="modal" @click="savetCode(event)">Save changes</button>
                 </div>
                 </div>
             </div>
@@ -93,9 +93,38 @@ export default {
         }
     },
     methods : {
-        editCode(item){
+        //编辑代码
+        editCode: function(item){
             this.$data.tmpCode = item;
+        },
+        addCode : function(){
+            this.$data.tmpCode.id = null;
+        },
+        //Insert and update
+        savetCode: function(){
+            let method = this.$options.methods;
+            let router = this.$router;
+            this.$http.post("/gcode/codes/save",this.$data.tmpCode,
+                {
+                    headers:{
+                        "Content-Type":"application/json",
+                    }
+                }
+            ).then(function(response){
+                if(response.data.ty != undefined){
+                    router.go(0);
+                }else{
+                    alert("添加失败");
+                    method.findAll();
+                }
+            })
+        },
+        //delete code 
+        deleteCode: function(){
+            this.$http.delete("/gcode/codes/delete/" + this.tmpCode.id);
+            this.$router.go(0);
         }
+
     },
     //初始化方法
     mounted : function(){

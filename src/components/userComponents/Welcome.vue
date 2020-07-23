@@ -13,7 +13,7 @@ export default {
     name: 'welcome',
     data () {
         return {
-            alias : "patrick"
+            alias : ""
         }
     },
     methods : {

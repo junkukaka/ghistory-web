@@ -75,6 +75,7 @@ export default {
         postMember(){
             let datas = this.$data;
             let router = this.$router;
+            let store = this.$store;
             this.$http.post("/member/members/register",
                 {
                     alias : this.$data.alias,
@@ -89,7 +90,7 @@ export default {
             ).then(function (response) {
                 //if return data hava id the regist is success
                 if(response.data.id != undefined){
-                    alert("注册成功");
+                    store.state.alias = response.data.alias;
                     //跳转欢迎页面
                     router.push({name:"welcome"});
                 }else{
@@ -97,8 +98,6 @@ export default {
                 }
             })
         },
-        
-
     }
 }
 </script>
