@@ -18,12 +18,8 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#" tabindex="-1" @click="toCodeManager">管理者</a>
                     </li>
-                    
-                     <li class="nav-item">
-                          <router-link to="/contentDetail">详细页面</router-link>
-                    </li>
                     <li class="nav-item">
-                          <router-link to="/adminArticle">详细页面</router-link>
+                        <a class="nav-link" href="#" tabindex="-1" @click="toAdminArticle">发表</a>
                     </li>
                 </ul>
                 <!-- <form class="form-inline my-2 my-lg-0">
@@ -39,7 +35,7 @@
                         <li class="nav-item" v-show="!$store.state.logined">
                             <a class="nav-link" href="#" tabindex="-1" @click="toRegistered">注册</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" v-if="$store.getters.getId != '' ">
                             <a class="nav-link" href="#" tabindex="-1" @click="toUserInfo">
                             {{$store.getters.getAlias}}
                             </a>
@@ -92,7 +88,11 @@ export default {
         },
         //管理者页面
         toCodeManager(){
-            this.$router.push({name: "codeManager"})
+            this.$router.push({name: "codeManager"});
+        },
+        //发表页面
+        toAdminArticle(){
+            this.$router.push({name:"adminArticle"});
         }
 
     }
